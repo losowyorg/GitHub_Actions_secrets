@@ -1,0 +1,31 @@
+name: dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+        required: true 
+        default: info
+      tags:
+        type: string
+        required: false
+      environment:
+        type: environment
+        required: false
+jobs:
+  log-the-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: logs
+        run: |
+          echo "Log level: $LEVEL"
+          echo "Tags: $TAGS"
+          echo "Environment: $ENVIRONMENT"
+        env:
+          LEVEL: ${{ github.event.inputs.logLevel }} # Poprawne użycie kontekstu 'github.event.inputs'
+          TAGS: ${{ github.event.inputs.tags }}
+          ENVIRONMENT: ${{ github.event.inputs.environment }}
