@@ -11,30 +11,34 @@ env:
 jobs:
   display-variables:
     name: ${{ vars.cat_name }}
+    env:
+      JOB_VAR: "Job Scope Variable"
     runs-on: ubuntu-latest
     steps:
     - name: Use variables 1
+      env:
+        STEP_VAR: "Step Scope Variable 1"
       run: |
         echo "Repository variable : ${{ vars.REPOSITORY_VAR }}"
         echo "Organization variable : ${{ vars.ORGANIZATION_VAR }}"
         echo "Environment variable : ${{ vars.ENVIRONMENT_VAR }}"
         echo "Alice has a cat named ${{ env.cat_name }}"
-        echo "Should be variable in workflow scope:$WORKFLOW_VAR"
-        echo "Should be variable in job scope:$JOB_VAR"
-        echo "Should be variable in step scope:$STEP_VAR"
+        echo "Should be variable in workflow ${{ env:WORKFLOW_VAR }}"
+        echo "Should be variable in job ${{ env:$JOB_VAR }}"
+        echo "Should be variable in step ${{ env:$STEP_VAR }}"
     
     - name: Use variables 2
       run: |
-        echo "Alice has a cat named <PRINT HERE THE CAT NAME STORED IN THE cat_name VARIABLE>"
-        echo "Should be variable in workflow scope:$WORKFLOW_VAR"
-        echo "Should be variable in job scope:$JOB_VAR"
-        echo "Should NOT be variable in step scope:$STEP_VAR"
+        echo "Alice has a cat named ${{ env.cat_name }}"
+        echo "Should be variable in workflow ${{ env.:$WORKFLOW_VAR }}"
+        echo "Should be variable in job ${{ env.:$JOB_VAR }}"
+        echo "Should NOT be variable in step ${{ env.:$STEP_VAR }}"
 
   display-variables2:
     runs-on: ubuntu-latest
     steps:
     - name: Use variables in display-variables2
       run: |
-        echo "Should be variable in workflow scope:$WORKFLOW_VAR"
-        echo "Should NOT be variable in job scope:$JOB_VAR"
-        echo "Should NOT be variable in step scope:$STEP_VAR"
+        echo "Should be variable in workflow ${{ env:$WORKFLOW_VAR }}"
+        echo "Should NOT be variable in job ${{ env:$JOB_VAR }}"
+        echo "Should NOT be variable in step ${{ env:$STEP_VAR }}"
