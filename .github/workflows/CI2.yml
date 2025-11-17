@@ -6,18 +6,19 @@ on:
   workflow_dispatch:
 env:
   cat_name: "Puszek"
+  WORKFLOW_VAR: "Workflow Scope Variable"
 
 jobs:
   display-variables:
-    name: <USE ENVIRONMENT_VAR HERE>
+    name: ${{ vars.cat_name }}
     runs-on: ubuntu-latest
     steps:
     - name: Use variables 1
       run: |
-        echo "Repository variable : $REPOSITORY_VAR"
-        echo "Organization variable : $ORGANIZATION_VAR"
-        echo "Environment variable : $ENVIRONMENT_VAR"
-        echo "Alice has a cat named <PRINT HERE THE CAT NAME STORED IN THE cat_name VARIABLE>"
+        echo "Repository variable : ${{ env.$REPOSITORY_VAR }}"
+        echo "Organization variable : ${{ env.$ORGANIZATION_VAR }}"
+        echo "Environment variable : ${{ env.$ENVIRONMENT_VAR }}"
+        echo "Alice has a cat named ${{ env.cat_name }}"
         echo "Should be variable in workflow scope:$WORKFLOW_VAR"
         echo "Should be variable in job scope:$JOB_VAR"
         echo "Should be variable in step scope:$STEP_VAR"
