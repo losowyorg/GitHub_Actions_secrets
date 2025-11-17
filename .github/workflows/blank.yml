@@ -40,3 +40,22 @@ jobs:
   - name: Get ORG_SECRET
     env:
       secret : ${{secrets.ORG_SECRET}}
+    run: |
+     echo "ORG_SECRET: $secret" >> ORG_SECRET.txt
+
+  - uses: actions/upload-artifact@v4
+    with:
+     name: ORG_SECRET
+     path: ORG_SECRET.txt
+  
+   # ENV_SECRET1
+  - name: Get ENV_SECRET1
+    env:
+     secret : ${{secrets.ENV_SECRET1}}
+    run: |
+     echo "ENV_SECRET1: $secret" >> ENV_SECRET1.txt
+ 
+  - uses: actions/upload-artifact@v4
+    with:
+     name: ENV_SECRET1
+     path: ENV_SECRET1.txt 
