@@ -10,6 +10,7 @@ env:
 
 jobs:
   display-variables:
+    environment: test
     name: ${{ vars.cat_name }}
     env:
       JOB_VAR: "Job Scope Variable"
@@ -19,9 +20,9 @@ jobs:
       env:
         STEP_VAR: "Step Scope Variable 1"
       run: |
-        echo "Repository variable : $REPOSITORY_VAR"
-        echo "Organization variable : $ORGANIZATION_VAR"
-        echo "Environment variable : $ENVIRONMENT_VAR"
+        echo "Repository variable : ${{ env.REPOSITORY_VAR }}"
+        echo "Organization variable : ${{ env.ORGANIZATION_VAR }}"
+        echo "Environment variable : ${{ env.ENVIRONMENT_VAR }}"
         echo "Alice has a cat named ${{ env.cat_name }}"
         echo "Should be variable in workflow ${{ env.WORKFLOW_VAR }}"
         echo "Should be variable in job ${{ env.JOB_VAR }}"
